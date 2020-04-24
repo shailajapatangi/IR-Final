@@ -2,7 +2,7 @@
 {% block content %}
 <head>
     <meta charset="UTF-8">
-    <title>something</title>
+    <title>Climate</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'climate.css' %}">
 
@@ -21,14 +21,19 @@
 
 <!-- Tab links -->
 <div class="tab">
-    <a href="getCustomResults"><button class="tablinks">Our custom results</button></a>
+    <a href="getCustomResults"><button id="custom_btn" class="tablinks">Our custom results</button></a>
 
 
-    <a href="getGoogleResults"+search><button class="tablinks">Google results</button></a>
+    <a href="getGoogleResults"><button id="google_btn" class="tablinks">Google results</button></a>
 
     <a href="getBingResults"><button class="tablinks">Bing Results</button></a>
     <a href="getClusterResults"><button class="tablinks">Cluster Results</button></a>
     <a href="getQueryExpansionResults"><button class="tablinks">Query Expansion</button></a>
+    <div id="content" >
+
+         {% block divBlock %}
+            {% endblock %}
+    </div>
 </div>
 
 
@@ -46,6 +51,29 @@ function openTab(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+function checkData(){
+var bing={{bing | safe}};
+
+
+if(bing){
+var div = document.getElementById('content');
+      var bing={{bing | safe}};
+     // var bing = {name: 'divya'};
+      console.log(bing);
+      for (var i = 0; i < bing.webPages.value.length; i++) {
+        var item = bing.webPages.value[i];
+        div.innerHTML = div.innerHTML + "<p color=class='inner' id="+i+">"+"<h1 style="+"font-size:20px;color:blue;"+">"+item.name+" </h1>" +"</p>" ;
+        div.innerHTML = div.innerHTML + "<a class='inner' id="+i+" href="+item.link+">" + item.url + "</a>" ;
+        div.innerHTML = div.innerHTML + "<p class='inner' id="+i+">"+ item.snippet +"</p>" ;
+       // div.innerHTML = div.innerHTML + "<a class='inner' id="+i+" href="+item.formattedUrl+">" + item.formattedUrl + "</a>" ;
+        // div.innerHTML = div.innerHTML + "<p class='inner' id="+i+">"+ item.formattedUrl +"</p>" + "<br>" + "<br/>" ";
+
+        //div.innerHTML = div.innerHTML + "<a class='inner' id="+i+" href="+item.displayLink+"></a>" + "<br>";
+        console.log(item);
+}
+}
+}
+//window.onload=checkData;
 </script>
 </body>
 {% endblock %}

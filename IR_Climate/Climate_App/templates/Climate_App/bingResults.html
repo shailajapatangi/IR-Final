@@ -1,19 +1,19 @@
   {% extends "Climate_App/climate.html" %}
-{% block content %}
+{% block divBlock %}
 
     <head>
  <script>
       function displayResults() {
       var div = document.getElementById('data');
       var bing={{bing | safe}};
-     // var bing = {name: 'divya'};
+
       console.log(bing);
       for (var i = 0; i < bing.webPages.value.length; i++) {
         var item = bing.webPages.value[i];
         div.innerHTML = div.innerHTML + "<p color=class='inner' id="+i+">"+"<h1 style="+"font-size:20px;color:blue;"+">"+item.name+" </h1>" +"</p>" ;
-        div.innerHTML = div.innerHTML + "<a class='inner' id="+i+" href="+item.link+">" + item.url + "</a>" ;
+        div.innerHTML = div.innerHTML + "<a class='inner' id="+i+" href="+item.url+">" + item.url + "</a>" ;
         div.innerHTML = div.innerHTML + "<p class='inner' id="+i+">"+ item.snippet +"</p>" ;
-       // div.innerHTML = div.innerHTML + "<a class='inner' id="+i+" href="+item.formattedUrl+">" + item.formattedUrl + "</a>" ;
+        //div.innerHTML = div.innerHTML + "<a class='inner' id="+i+" href="+item.formattedUrl+">" + item.formattedUrl + "</a>" ;
         // div.innerHTML = div.innerHTML + "<p class='inner' id="+i+">"+ item.formattedUrl +"</p>" + "<br>" + "<br/>" ";
 
         //div.innerHTML = div.innerHTML + "<a class='inner' id="+i+" href="+item.displayLink+"></a>" + "<br>";
@@ -26,7 +26,7 @@
     </script>
 
     </head>
-  <h1>welcome here</h1>
+
   <body >
 
         <div id="data" class="container">

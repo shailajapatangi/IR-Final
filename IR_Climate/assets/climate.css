@@ -3,7 +3,7 @@
 }
 
 body{
-  text-align: center;
+  text-align: left;
 }
 
 form{
@@ -16,7 +16,7 @@ div#search{
 }
 /* Style the search field */
 form.example input[type=text] {
-  padding: 10px;
+  padding: 8.5px;
   font-size: 17px;
   border: 1px solid grey;
   float: left;
@@ -51,6 +51,7 @@ form.example::after {
 /* Style the tab */
 .tab {
   overflow: hidden;
+  width: 1502px;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
 }
