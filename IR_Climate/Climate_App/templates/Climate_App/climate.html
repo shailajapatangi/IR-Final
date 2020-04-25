@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Climate</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'climate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/climate.css' %}">
 
 </head>
 <body>
@@ -21,14 +21,14 @@
 
 <!-- Tab links -->
 <div class="tab">
-    <a href="getCustomResults"><button id="custom_btn" class="tablinks">Our custom results</button></a>
+    <a class="current" href="getCustomResults"><button id="custom_btn" class="tablinks">Our custom results</button></a>
 
 
-    <a href="getGoogleResults"><button id="google_btn" class="tablinks">Google results</button></a>
+    <a class="current" href="getGoogleResults"><button id="google_btn" class="tablinks">Google results</button></a>
 
-    <a href="getBingResults"><button class="tablinks">Bing Results</button></a>
-    <a href="getClusterResults"><button class="tablinks">Cluster Results</button></a>
-    <a href="getQueryExpansionResults"><button class="tablinks">Query Expansion</button></a>
+    <a class="current" href="getBingResults"><button class="tablinks">Bing Results</button></a>
+    <a class="current" href="getClusterResults"><button class="tablinks">Cluster Results</button></a>
+    <a class="current" href="getQueryExpansionResults"><button class="tablinks">Query Expansion</button></a>
     <div id="content" >
 
          {% block divBlock %}
