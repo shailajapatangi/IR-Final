@@ -22,7 +22,8 @@ assert subscription_key
 search_url = "https://api.cognitive.microsoft.com/bing/v7.0/search"
 search_term=""
 activeTab="custom"
-
+hits.get_url_map()
+hits.get_adj_lis()
 cwd = os.getcwd()
 
 class clusterModel():
@@ -33,8 +34,7 @@ clusterData = clusterModel()
 
 
 def getClimateData(request):
-    hits.get_url_map()
-    hits.get_adj_lis()
+
     return render(request, 'Climate_App/index.html')
 
 def getResults():
