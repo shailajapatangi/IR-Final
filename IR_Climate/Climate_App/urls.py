@@ -7,5 +7,6 @@ urlpatterns = [
     path('getBingResults', views.getBingResults, name='getBingResults'),
     path('getClusterResults', views.getClusterResults, name='getClusterResults'),
     path('getQueryExpansionResults', views.getQueryExpansionResults, name='getQueryExpansionResults'),
-    path('getSearchQuery', views.getSearchQuery, name='getSearchQuery')
+    path('getSearchQuery', views.getSearchQuery, name='getSearchQuery'),
+    path('getHitsResults', views.getHitsResults, name='getHitsResults')
 ]
