@@ -1,4 +1,48 @@
 {% extends "./index.html" %}
 {% block nav-custom %}
-    <h2>Welcome Query Expansion</h2>
+    <head>
+        <style>
+             h1, h2, h3, h4, h5, h6{
+                line-height: 30px;
+             }
+         </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#associative").click(function(){
+                    $("p").text("Loading...");
+                    $.get("getAssociativeExpansion", function(data, status){
+                        $("p").text("Original Query: "+data["query"]+" || Expanded Query: "+data["expandedQuery"]);
+                    });
+                });
+                $("#metric").click(function(){
+                    $("p").text("Loading...");
+                    $.get("getMetricExpansion", function(data, status){
+                        $("p").text("Original Query: "+data["query"]+" || Expanded Query: "+data["expandedQuery"]);
+                    });
+                });
+                $("#scalar").click(function(){
+                    $("p").text("Loading...");
+                    $.get("getScalarExpansion", function(data, status){
+                        $("p").text("Original Query: "+data["query"]+" || Expanded Query: "+data["expandedQuery"]);
+                    });
+                });
+
+            });
+</script>
+
+    </head>
+
+    <body>
+
+        <h3>Please select the clustering of your choice</h3>
+
+        <div>
+            <button class="tablinks" style="margin:5px;" id="associative">Associative Clustering</button>
+            <button class="tablinks" style="margin:5px;" id="metric">Metric Clustering</button>
+            <button class="tablinks" style="margin:5px;" id="scalar">Scalar Clustering</button>
+        </div>
+
+        <p></p>
+    </body>
   {% endblock %}

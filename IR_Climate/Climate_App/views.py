@@ -12,6 +12,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import requests
 import pandas as pd
 from .hits import hits
+
+from .Services import AssociativeClustering
+from .Services import MetricClustering
+from .Services import ScalarClustering
+from django.http import JsonResponse
 import os
 import json
 
@@ -61,6 +66,34 @@ def getGoogleResults(request):
      activeTab = "google"
      return render(request, 'Climate_App/googleResults.html', {"google": json.dumps(res), "activeTab" : activeTab, "search_term" : search_term})
 
+def getAssociativeExpansion(request):
+    url = "http://ec2-35-171-122-69.compute-1.amazonaws.com:8983/solr/nutch/select?q=content:\"" + str(
+        search_term) + "\" OR title:\"" + str(search_term) + "\" OR id:\"" + str(search_term) + "\""
+    response = requests.get(url)
+    search_results = response.json()
+    print("calculating")
+    expandedQuery = AssociativeClustering.getExpandedQuery(search_term,search_results)
+    return JsonResponse({"query":search_term,"expandedQuery":expandedQuery},safe=False)
+
+def getMetricExpansion(request):
+
+    url = "http://ec2-35-171-122-69.compute-1.amazonaws.com:8983/solr/nutch/select?q=content:\"" + str(
+        search_term) + "\" OR title:\"" + str(search_term) + "\" OR id:\"" + str(search_term) + "\""
+    response = requests.get(url)
+    search_results = response.json()
+    print("calculating")
+    expandedQuery = MetricClustering.getExpandedQuery(search_term, search_results)
+    return JsonResponse({"query":search_term,"expandedQuery":expandedQuery},safe=False)
+
+def getScalarExpansion(request):
+
+    url = "http://ec2-35-171-122-69.compute-1.amazonaws.com:8983/solr/nutch/select?q=content:\"" + str(
+        search_term) + "\" OR title:\"" + str(search_term) + "\" OR id:\"" + str(search_term) + "\""
+    response = requests.get(url)
+    search_results = response.json()
+    print("calculating")
+    expandedQuery = ScalarClustering.getExpandedQuery(search_term, search_results)
+    return JsonResponse({"query":search_term,"expandedQuery":expandedQuery},safe=False)
 
 def getCustomResults(request):
     global activeTab
