@@ -60,11 +60,12 @@ def getGoogleResults(request):
      res = service.cse().list(q=search_term, cx=my_cse_id).execute()
      activeTab = "google"
      return render(request, 'Climate_App/googleResults.html', {"google": json.dumps(res), "activeTab" : activeTab, "search_term" : search_term})
-    #return render(request, 'Climate_App/googleResults.html')
+
 
 def getCustomResults(request):
     global activeTab
     activeTab = "custom"
+    search_term=getSearchQuery(request)
     search_results = getResults()
     return render(request, 'Climate_App/customResults.html', {"results": search_results, "activeTab" : activeTab, "search_term" : search_term})
 
@@ -113,9 +114,10 @@ def getQueryExpansionResults(request):
 
 def getSearchQuery(request):
     global search_term
-    search_term = request.GET['searchResult']
+    if request.method == 'GET' and 'searchResult' in request.GET:
+        search_term = request.GET['searchResult']
+    return search_term
 
-    return render(request, 'Climate_App/index.html', {"search_term" : search_term})
 
 def getHitsResults(request):
     global activeTab

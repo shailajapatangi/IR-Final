@@ -29,7 +29,7 @@
                                     <h3>Climate Search Engine</h3>
                                     <div id="custom-search-input">
                                         <div class="input-group col-md-12">
-                                            <form class="example"  action='getSearchQuery'>
+                                            <form class="example"  action='getCustomResults'>
                                            {% csrf_token %}
                                             <input id="query" type="text" class="  search-query form-control" placeholder="Search" name="searchResult" value="{{ search_term}}" style="width : 890px;" />
                                             <span class="input-group-btn">
