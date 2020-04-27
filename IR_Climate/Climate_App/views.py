@@ -67,30 +67,22 @@ def getGoogleResults(request):
      return render(request, 'Climate_App/googleResults.html', {"google": json.dumps(res), "activeTab" : activeTab, "search_term" : search_term})
 
 def getAssociativeExpansion(request):
-    url = "http://ec2-35-171-122-69.compute-1.amazonaws.com:8983/solr/nutch/select?q=content:\"" + str(
-        search_term) + "\" OR title:\"" + str(search_term) + "\" OR id:\"" + str(search_term) + "\""
-    response = requests.get(url)
-    search_results = response.json()
+
+    search_results = getResults()
     print("calculating")
     expandedQuery = AssociativeClustering.getExpandedQuery(search_term,search_results)
     return JsonResponse({"query":search_term,"expandedQuery":expandedQuery},safe=False)
 
 def getMetricExpansion(request):
 
-    url = "http://ec2-35-171-122-69.compute-1.amazonaws.com:8983/solr/nutch/select?q=content:\"" + str(
-        search_term) + "\" OR title:\"" + str(search_term) + "\" OR id:\"" + str(search_term) + "\""
-    response = requests.get(url)
-    search_results = response.json()
+    search_results = getResults()
     print("calculating")
     expandedQuery = MetricClustering.getExpandedQuery(search_term, search_results)
     return JsonResponse({"query":search_term,"expandedQuery":expandedQuery},safe=False)
 
 def getScalarExpansion(request):
 
-    url = "http://ec2-35-171-122-69.compute-1.amazonaws.com:8983/solr/nutch/select?q=content:\"" + str(
-        search_term) + "\" OR title:\"" + str(search_term) + "\" OR id:\"" + str(search_term) + "\""
-    response = requests.get(url)
-    search_results = response.json()
+    search_results = getResults()
     print("calculating")
     expandedQuery = ScalarClustering.getExpandedQuery(search_term, search_results)
     return JsonResponse({"query":search_term,"expandedQuery":expandedQuery},safe=False)
@@ -131,7 +123,6 @@ def clusterResults(search_results):
         else:
             normal_results.append(docs[i])
     cluster_results.extend(normal_results)
-
     return cluster_results
 
 def getClusterResults(request):

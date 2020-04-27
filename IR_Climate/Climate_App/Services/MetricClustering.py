@@ -3,6 +3,7 @@ from .PreProcessor import processDocuments
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 import heapq
+import os
 
 def wordsDictionary(docAfterProcessing):
     doc = 1;
@@ -26,11 +27,17 @@ def wordsDictionary(docAfterProcessing):
 
 def makeStems(wordsDictionary,ps):
 
+    cwd = os.getcwd()
+    with open(cwd + "/Climate_App/Services/stopwords", "r") as f:
+        stop_list = set(ps.stem(line.rstrip('\n')) for line in f)
     stemsDictionary = {}
 
     for each_word in wordsDictionary:
 
         stem = ps.stem(each_word)
+
+        if stem in stop_list:
+            continue
         if stem not in stemsDictionary:
             stemsDictionary[stem] = set()
 
@@ -92,6 +99,7 @@ def getFinalQuery(association,query,top,ps):
     for each_stem in queryStems:
         print(each_stem)
         if each_stem in association:
+            print(each_stem)
             topN = heapq.nlargest(top+10,association[each_stem],key=association[each_stem].get)
             print(topN)
             curr = 1

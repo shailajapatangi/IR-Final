@@ -3,10 +3,15 @@ from .PreProcessor import processDocuments
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 import heapq
+import os
 
 
 def makeAssociationMatrix(docAfterProcessing,ps,length):
     associationMatrix = {};
+
+    cwd = os.getcwd()
+    with open(cwd + "/Climate_App/Services/stopwords", "r") as f:
+        stop_list = set(ps.stem(line.rstrip('\n')) for line in f)
 
     for id in range(length):
 
@@ -16,6 +21,8 @@ def makeAssociationMatrix(docAfterProcessing,ps,length):
         for eachWord in words:
             eachWord = ps.stem(eachWord)
 
+            if eachWord in stop_list:
+                continue
             if len(eachWord) <= 3:
                 continue
 
@@ -65,18 +72,17 @@ def getFinalQuery(association,query,top,ps):
     for each_stem in queryStems:
         print(each_stem)
         if each_stem in association:
+            print(each_stem)
             topN = heapq.nlargest(top+10,association[each_stem],key=association[each_stem].get)
             print(topN)
             curr = 1
             for new_stem in topN:
                 if (new_stem in check) or len(new_stem)<=3:
-                    print("hi")
                     continue
 
                 if curr>top:
                     break
                 elif new_stem not in querySet:
-                    print(new_stem)
                     querySet.add(new_stem)
                     curr+=1
 

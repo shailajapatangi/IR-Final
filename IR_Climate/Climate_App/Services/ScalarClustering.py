@@ -4,6 +4,7 @@ from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 import math
 import heapq
+import os
 
 def wordsDictionary(docAfterProcessing):
     doc = 1;
@@ -101,7 +102,6 @@ def getFinalQuery(association,query,top,ps):
             curr = 1
             for new_stem in topN:
                 if (new_stem in check) or len(new_stem)<=3:
-                    print("hi")
                     continue
 
                 if curr>top:
@@ -128,11 +128,16 @@ def getStemsFromSentence(sentence,ps):
 
 def makeStems(wordsDictionary,ps):
 
+    cwd = os.getcwd()
+    with open(cwd + "/Climate_App/Services/stopwords", "r") as f:
+        stop_list = set(ps.stem(line.rstrip('\n')) for line in f)
     stemsDictionary = {}
 
     for each_word in wordsDictionary:
 
         stem = ps.stem(each_word)
+        if stem in stop_list:
+            continue;
         if stem not in stemsDictionary:
             stemsDictionary[stem] = set()
 
