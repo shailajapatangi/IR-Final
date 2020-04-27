@@ -1,0 +1,103 @@
+{% load static %}
+
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Climate</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"  >
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"  >
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+		<div class="headerbar"><img src="/static/Images/Weather1.png"/></div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="panel with-nav-tabs panel-default">
+
+                        <div class="panel-heading">
+                            <div class="search">
+                                <div class="row">
+                                    <h3>Climate Search Engine</h3>
+                                    <div id="custom-search-input">
+                                        <div class="input-group col-md-12">
+                                            <form class="example"  action='getCustomResults'>
+                                           {% csrf_token %}
+                                            <input id="query" type="text" class="  search-query form-control" placeholder="Search" name="searchResult" value="{{ search_term}}" style="width : 890px;" />
+                                            <span class="input-group-btn">
+
+
+												<button id="searchButton"  class="btn btn-danger"
+													type="submit" >
+													<span class="/static/fonts/glyphicon glyphicon-search"></span>
+                                                </button>
+
+
+                                            </span>
+                                           </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         <!--   <div class="space"></div> -->
+                            <!--mine start -->
+                         <div>
+                                {% block nav %}
+                                <ul class="nav nav-tabs">
+                                    <li id="tab1" {% ifequal activeTab "custom"  %}class="active"{% endifequal %}><a href="getCustomResults" >Our Results</a></li>
+                                    <li id="tab2" {% ifequal activeTab "google"  %}class="active"{% endifequal %} ><a  href="getGoogleResults" >Google
+											Search</a></li>
+                                    <li id="tab3" {% ifequal activeTab "bing"  %}class="active"{% endifequal %}><a  href="getBingResults" >Bing
+											Search</a></li>
+
+                                    <li  id="tab4" {% ifequal activeTab "cluster"  %}class="active"{% endifequal %}><a  href="getClusterResults" >Results with Flat clustering</a></li>
+                                    <li  id="tab5" {% ifequal activeTab "queryExpansion"  %}class="active"{% endifequal %}><a href="getQueryExpansionResults"  >Results with Query Expansion</a></li>
+                                    <li  id="tab6" {% ifequal activeTab "hits"  %}class="active"{% endifequal %}><a  href="getHitsResults" >Hits Search</a></li>
+                                    <li  id="tab7" {% ifequal activeTab "agglomerative"  %}class="active"{% endifequal %}><a  href="getAgglomerativeResults" >Results with Agglomerative</a></li>
+
+                            		
+                                </ul>
+                                {% endblock %}
+
+                             <div id="content">
+                                  {% block nav-custom %}
+                                 {% endblock %}
+                             </div>
+
+                            </div>
+                             <!--mine end -->
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+
+
+    <script>
+
+    </script>
+
+
+
+
+
+</body>
+
+
+
+</html>
